@@ -20,3 +20,10 @@ class ProductDelete(generics.DestroyAPIView):
     
     def get_queryset(self):
         return Product.objects.filter(owner=self.request.user)
+
+class ProductRetrieve(generics.RetrieveAPIView):
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Product.objects.filter(owner=self.request.user)
