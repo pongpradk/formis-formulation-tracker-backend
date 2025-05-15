@@ -27,3 +27,10 @@ class ProductRetrieve(generics.RetrieveAPIView):
 
     def get_queryset(self):
         return Product.objects.filter(owner=self.request.user)
+
+class ProductUpdate(generics.UpdateAPIView):
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        return Product.objects.filter(owner=self.request.user)
