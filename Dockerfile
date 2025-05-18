@@ -17,4 +17,7 @@ RUN pip install -r requirements.txt
 # Copy project
 COPY . .
 
+# Collect static files
+RUN python manage.py collectstatic --noinput
+
 CMD ["gunicorn", "my_project.wsgi:application", "--bind", "0.0.0.0:8000"]
