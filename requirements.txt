@@ -8,3 +8,4 @@ python-dotenv==1.1.0
 sqlparse==0.5.3
 psycopg[binary]==3.2.9
 gunicorn==22.0.0
+whitenoise[brotli]==6.9.0
