@@ -3,3 +3,9 @@
 .gitignore
 .gitattributes
 .env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+static_root/
+postgres_data/
