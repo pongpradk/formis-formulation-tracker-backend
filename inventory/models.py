@@ -13,3 +13,15 @@ class Product(models.Model):
     
     def __str__(self):
         return self.name
+
+class Ingredient(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='ingredient_items')
+    name = models.CharField(max_length=200)
+    position = models.PositiveIntegerField()  # Using 0-based indexing
+    
+    class Meta:
+        ordering = ['position']  # Default ordering by position
+        unique_together = ['product', 'position']  # Prevent duplicate positions
+    
+    def __str__(self):
+        return f"{self.name} (#{self.position+1})"

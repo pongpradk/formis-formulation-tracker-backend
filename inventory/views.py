@@ -1,7 +1,8 @@
-from django.shortcuts import render
-from rest_framework import generics
-from .serializers import ProductSerializer
-from .models import Product
+from django.shortcuts import render, get_object_or_404
+from rest_framework import generics, status
+from rest_framework.response import Response
+from .serializers import ProductSerializer, IngredientSerializer
+from .models import Product, Ingredient
 from rest_framework.permissions import IsAuthenticated
 
 class ProductListCreate(generics.ListCreateAPIView):
@@ -34,3 +35,12 @@ class ProductUpdate(generics.UpdateAPIView):
     
     def get_queryset(self):
         return Product.objects.filter(owner=self.request.user)
+
+class IngredientList(generics.ListAPIView):
+    serializer_class = IngredientSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        product_id = self.kwargs.get('product_id')
+        product = get_object_or_404(Product, id=product_id, owner=self.request.user)
+        return Ingredient.objects.filter(product=product)
